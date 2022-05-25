@@ -16,4 +16,4 @@ jobs:
     - name: "Composer install"
       uses: MilesChou/composer-action@master
       with:
-        args: install --ignore-flatform-reqs
+        args: install --ignore-platform-reqs
