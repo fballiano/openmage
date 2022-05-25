@@ -13,3 +13,7 @@ jobs:
       run: "sudo snap install hub --classic"
     - name: "Checkout repository"
       uses: actions/checkout@master
+    - name: "Composer install"
+      uses: MilesChou/composer-action@master
+      with:
+        args: install --ignore-flatform-reqs
