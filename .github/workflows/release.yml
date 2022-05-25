@@ -1,0 +1,15 @@
+name: Release builder
+
+on:
+  release:
+    types: [created]
+  push:
+
+jobs:
+  release_build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Install hub"
+      run: "sudo snap install hub --classic"
+    - name: "Checkout repository"
+      uses: actions/checkout@master
