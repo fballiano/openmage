@@ -17,3 +17,5 @@ jobs:
       uses: MilesChou/composer-action@master
       with:
         args: install --ignore-platform-reqs
+    - name: "ls"
+      run: "ls -lah"
