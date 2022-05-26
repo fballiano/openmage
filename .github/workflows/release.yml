@@ -18,6 +18,6 @@ jobs:
       with:
         args: install --ignore-platform-reqs
     - name: "Move Pelago_Emogrifier to /lib"
-      run: "mkdir -p lib/Pelago/Emogrifier; mv vendor/pelago/emogrifier/src/* lib/Pelago/Emogrifier/"
+      run: "mkdir -p lib/Pelago/Emogrifier; cp -R vendor/pelago/emogrifier/src/* lib/Pelago/Emogrifier/"
     - name: "Cleanup"
-      run: "rm -rf vendor; git checkout composer.json composer.lock app/Mage.php"
+      run: "sudo rm -rf vendor; git checkout composer.json composer.lock app/Mage.php"
