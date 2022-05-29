@@ -23,10 +23,8 @@ jobs:
     - name: "Create Cm_RedisSession in app/etc/modules"
       run: "echo '<config><modules><Cm_RedisSession><active>false</active><codePool>community</codePool></Cm_RedisSession></modules></config>'>app/etc/modules/Cm_RedisSession.xml"
     - name: "Cleanup"
-      run: "git checkout composer.json composer.lock app/Mage.php; sudo rm -rf root vendor .git"
-    - name: "ls"
-      run: "ls -lah; ls -lah lib;"
+      run: "git checkout composer.json composer.lock app/Mage.php; sudo rm -rf root vendor"
     - name: "Create ZIP file"
-      run: zip -rq ${{ github.event.release.tag_name }}.zip .
+      run: zip -rq ${{ github.event.release.tag_name }}.zip . -x .git
     - name: "Attach ZIP to GitHub release"
       run: hub release edit ${{ github.event.release.tag_name }} --attach ${{ github.event.release.tag_name }}.zip
