@@ -26,4 +26,4 @@ jobs:
     - name: "ls"
       run: "ls -lah; ls -lah lib;"
     - name: "Create ZIP file"
-      run: zip -rq $HOME/release.zip .
+      run: zip -rq $HOME/${{ github.ref }}.zip .
