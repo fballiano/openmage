@@ -27,6 +27,8 @@ jobs:
     - name: "Create ZIP file"
       run: zip -rq ${{ github.event.release.tag_name }}.zip . -x .git
     - name: "Attach ZIP to GitHub release"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: hub release edit ${{ github.event.release.tag_name }} --attach ${{ github.event.release.tag_name }}.zip
+      uses: svenstaro/upload-release-action@master
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ github.event.release.tag_name }}.zip
+        tag: ${{ github.event.release.tag_name }}
