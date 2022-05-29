@@ -25,7 +25,7 @@ jobs:
     - name: "Cleanup"
       run: "git checkout composer.json composer.lock app/Mage.php; sudo rm -rf root vendor"
     - name: "Create ZIP file"
-      run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x .git
+      run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x ".git/*"
     - name: "Attach ZIP to GitHub release"
       uses: svenstaro/upload-release-action@master
       with:
