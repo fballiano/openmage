@@ -8,8 +8,6 @@ jobs:
   release_build:
     runs-on: ubuntu-latest
     steps:
-    - name: "Install hub"
-      run: "sudo snap install hub --classic"
     - name: "Checkout repository"
       uses: actions/checkout@master
     - name: "Composer install"
@@ -22,13 +20,15 @@ jobs:
       run: "mkdir -p lib/Credis; cp -R vendor/colinmollenhour/credis/* lib/Credis/; mkdir -p app/code/community/Cm/RedisSession; cp -R vendor/colinmollenhour/magento-redis-session/app/code/local/Cm/RedisSession/* app/code/community/Cm/RedisSession/"
     - name: "Create Cm_RedisSession in app/etc/modules"
       run: "echo '<config><modules><Cm_RedisSession><active>false</active><codePool>community</codePool></Cm_RedisSession></modules></config>'>app/etc/modules/Cm_RedisSession.xml"
+    - name: "Move Cm_Cache_Backend_Redis /lib"
+      run: "mkdir -p lib/Cm/Cache/Backend; cp vendor/colinmollenhour/cache-backend-redis/Cm/Cache/Backend/* lib/Cm/Cache/Backend/"
     - name: "Cleanup"
       run: "git checkout composer.json composer.lock app/Mage.php; sudo rm -rf root vendor"
     - name: "Create ZIP file"
-      run: zip -rq ${{ github.event.release.tag_name }}.zip . -x .git
+      run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x .git
     - name: "Attach ZIP to GitHub release"
       uses: svenstaro/upload-release-action@master
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ github.event.release.tag_name }}.zip
+        file: openmage-${{ github.event.release.tag_name }}.zip
         tag: ${{ github.event.release.tag_name }}
