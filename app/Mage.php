@@ -59,7 +59,6 @@ if (file_exists($autoloaderPath = BP . DS . 'vendor/autoload.php') ||
 }
 /** AUTOLOADER PATCH **/
 
-include_once "phpseclib/bootstrap.php";
 include_once "mcryptcompat/mcrypt.php";
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
