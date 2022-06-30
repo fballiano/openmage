@@ -20,7 +20,7 @@
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
-    "phpstan/phpstan": "^1.4.6"
+    "phpstan/phpstan": "^1.7.1"
   },
   "autoload-dev": {
     "psr-4": { "OpenMage\\Tests\\Unit\\": "dev/tests/unit" }
