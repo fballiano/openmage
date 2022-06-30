@@ -1,6 +1,6 @@
 {
-  "name": "openmage/magento-lts",
-  "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
+  "name": "fballiano/mcommerce",
+  "description": "A fork of OpenMage v20",
   "license": [
     "OSL-3.0",
     "AFL-3.0"
