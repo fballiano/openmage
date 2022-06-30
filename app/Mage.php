@@ -59,8 +59,6 @@ if (file_exists($autoloaderPath = BP . DS . 'vendor/autoload.php') ||
 }
 /** AUTOLOADER PATCH **/
 
-include_once "mcryptcompat/mcrypt.php";
-
 /* Support additional includes, such as composer's vendor/autoload.php files */
 foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
     include_once $path;
