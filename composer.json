@@ -12,7 +12,9 @@
     "shardj/zf1-future": "^1.21.2",
     "colinmollenhour/cache-backend-redis": "^1.14.3",
     "colinmollenhour/magento-redis-session": "^2.4.0",
-    "pelago/emogrifier": "^6.0"
+    "pelago/emogrifier": "^6.0",
+    "pear/net_idna2": "^0.2.0",
+    "fileeye/linuxlibertine-fonts": "^5.3.0"
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
