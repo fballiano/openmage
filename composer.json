@@ -10,8 +10,7 @@
     "php": ">=7.0 <7.5 || >=8.0 <8.1",
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
     "shardj/zf1-future": "^1.21.2",
-    "colinmollenhour/magento-redis-session": "^2.4.0",
-    
+    "colinmollenhour/magento-redis-session": "^2.4.0"
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
@@ -25,5 +24,10 @@
       "dev-main": "mcommerce"
     },
     "magento-root-dir": "."
+  },
+  "config": {
+    "allow-plugins": {
+      "magento-hackathon/magento-composer-installer": true
+    }
   }
 }
