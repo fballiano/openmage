@@ -11,7 +11,8 @@
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
     "shardj/zf1-future": "^1.21.2",
     "colinmollenhour/cache-backend-redis": "^1.14.3",
-    "colinmollenhour/magento-redis-session": "^2.4.0"
+    "colinmollenhour/magento-redis-session": "^2.4.0",
+    "pelago/emogrifier": "^6.0"
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
