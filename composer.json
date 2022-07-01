@@ -20,7 +20,7 @@
     "colinmollenhour/cache-backend-redis": "^1.14.3",
     "colinmollenhour/magento-redis-session": "^2.4.0",
     "fballiano/magento1-image-cleaner": "^0.9.0",
-    "gordonlesti/lesti_fpc": "^1.4.9"
+    "fballiano/openmage-lesti-fpc": "^1.5.1"
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
