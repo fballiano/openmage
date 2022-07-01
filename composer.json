@@ -21,12 +21,14 @@
     "aoepeople/aoe_jscsststamp": "Automatic Versioning of JS and CSS files",
     "aoepeople/aoe_scheduler": "Advanced cron scheduling management",
     "aschroder/smtp_pro": "Support for sending emails via SMTP",
+    "avstudnitz/fast-simple-import": "Imports products and customers from arrays",
     "colinmollenhour/cache-backend-redis": "Support for storing OpenMage's cache in Redis",
     "colinmollenhour/magento-redis-session": "Support for storing OpenMage' sessions in Redis",
     "colinmollenhour/Perfect_Watermarks": "Replacement for OpenMage's GD2 image adapter with imagemagick",
     "fballiano/magento1-image-cleaner": "Identify and remove orphan images",
     "fballiano/openmage-lesti-fpc": "PHP bases Full Page Cache",
-    "firegento/logger": "Advanced logging capabilities"
+    "firegento/logger": "Advanced logging capabilities",
+    "amsty promo pro": "ciaociao"
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
