@@ -27,8 +27,7 @@
     "colinmollenhour/Perfect_Watermarks": "Replacement for OpenMage's GD2 image adapter with imagemagick",
     "fballiano/magento1-image-cleaner": "Identify and remove orphan images",
     "fballiano/openmage-lesti-fpc": "PHP bases Full Page Cache",
-    "firegento/logger": "Advanced logging capabilities",
-    "amsty promo pro": "ciaociao"
+    "firegento/logger": "Advanced logging capabilities"
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
