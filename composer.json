@@ -1,6 +1,6 @@
 {
   "name": "fballiano/mcommerce",
-  "description": "A fork of OpenMage v20",
+  "description": "A fork of OpenMage v20.0.15",
   "license": [
     "OSL-3.0",
     "AFL-3.0"
@@ -8,7 +8,18 @@
   "type": "magento-source",
   "require": {
     "php": ">=7.4 <8.1",
-    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
+    "ext-curl": "*",
+    "ext-gd": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-pdo": "*",
+    "ext-simplexml": "*",
+    "ext-dom": "*",
+    "ext-libxml": "*",
+    "ext-soap": "*",
+    "ext-iconv": "*",
+    "ext-zlib": "*",
+    "magento-hackathon/magento-composer-installer": "^4.0",
     "shardj/zf1-future": "^1.21.2",
     "pelago/emogrifier": "^6.0",
     "pear/net_idna2": "^0.2.0",
