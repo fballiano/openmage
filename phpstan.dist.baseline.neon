@@ -1766,11 +1766,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product.php
 
 		-
-			message: "#^Method Mage_Catalog_Helper_Product\\:\\:getMinimalQty\\(\\) should return int\\|null but returns float\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
@@ -2068,11 +2063,6 @@ parameters:
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
-			path: app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Property Mage_Catalog_Model_Product\\:\\:\\$_stockItem \\(Mage_CatalogInventory_Model_Stock_Item\\) does not accept Varien_Object\\.$#"
-			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product.php
 
 		-
@@ -6061,11 +6051,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
 
 		-
-			message: "#^Property Mage_Core_Model_Abstract\\:\\:\\$_origData \\(array\\) does not accept null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
@@ -6804,11 +6789,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Shipping_Model_Rate_Result\\:\\:getAllTrackings\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Tracking/Result.php
-
-		-
-			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getCheckSql\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sitemap/Model/Resource/Catalog/Abstract.php
 
 		-
 			message: "#^Method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addPopularity\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
@@ -7804,21 +7784,6 @@ parameters:
 			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: lib/Varien/Io/Abstract.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 8
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Property Varien_Io_File\\:\\:\\$_streamHandler \\(resource\\) does not accept null\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
 
 		-
 			message: "#^Access to an undefined property Varien_Object_Cache\\:\\:\\$_referencesByObject\\.$#"
