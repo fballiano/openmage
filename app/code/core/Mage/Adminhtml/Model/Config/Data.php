@@ -62,13 +62,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     protected $_configRoot;
 
     /**
-     * @var array[]
-     */
-    protected $defaultBackendClassMap = [
-        'color' => 'adminhtml/system_config_backend_color'
-    ];
-
-    /**
      * Save config section
      * Require set: section, website, store and groups
      *
@@ -150,7 +143,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     }
                 }
 
-                $backendClass = $this->getBackendClass($fieldConfig);
+                $helper = Mage::helper('adminhtml/config');
+                $backendClass = $helper->getBackendClass($fieldConfig);
 
                 /** @var Mage_Core_Model_Config_Data $dataObject */
                 $dataObject = Mage::getModel($backendClass);
@@ -492,25 +486,5 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         }
 
         return $this->setGroupsSecure($groups);
-    }
-
-    /**
-     * Get field backend model
-     *
-     * @param Varien_Simplexml_Element $fieldConfig
-     * @return string
-     */
-    public function getBackendClass(Varien_Simplexml_Element $fieldConfig): string
-    {
-        $backendClass = (isset($fieldConfig->backend_model)) ? $fieldConfig->backend_model : false;
-        if ($backendClass) {
-            return $backendClass;
-        }
-
-        if (isset($fieldConfig->frontend_type, $this->defaultBackendClassMap[(string)$fieldConfig->frontend_type])) {
-            return $this->defaultBackendClassMap[(string)$fieldConfig->frontend_type];
-        }
-
-        return 'core/config_data';
     }
 }
