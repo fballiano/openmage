@@ -6,15 +6,6 @@ test -f .env && source .env
 
 chmod 777 ../../app/etc ../../media ../../var
 
-docker-compose up -d mysql apache
-sleep 4
-# mostly a copy from the openmage directory
-echo "Starting services..."
-for i in $(seq 1 20); do
-  sleep 1
-  docker exec openmage_mysql_1 mysql -e 'show databases;' 2>/dev/null | grep -qF 'openmage' && break
-done
-
 HOST_PORT_PART=":${HOST_PORT:-80}"
 test "$HOST_PORT_PART" = ":80" && HOST_PORT_PART=""
 BASE_URL=${BASE_URL:-"http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT_PART}/"}
@@ -23,10 +14,10 @@ ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-veryl0ngpassw0rd}"
 
 echo "Running composer install..."
-docker-compose run --rm cli composer install
+composer install
 
 echo "Installing OpenMage LTS..."
-docker-compose run --rm cli php install.php \
+php install.php \
   --license_agreement_accepted yes \
   --locale en_US \
   --timezone America/New_York \
@@ -50,4 +41,3 @@ docker-compose run --rm cli php install.php \
 echo ""
 echo "Setup is complete!"
 echo "Visit ${BASE_URL}admin and login with '$ADMIN_USERNAME' : '$ADMIN_PASSWORD'"
-echo "MySQL server IP: $(docker exec openmage_apache_1 getent hosts mysql | awk '{print $1}')"

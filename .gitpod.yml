@@ -1,3 +1,6 @@
+image:
+  file: .gitpod.Dockerfile
+
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
   - init: echo 'init script' # runs during prebuild
@@ -6,7 +9,6 @@ tasks:
     init: |
       BASE_URL="$(echo "$GITPOD_WORKSPACE_URL" | sed s~https://~https://8000-~)"
       HOST_PORT=8000 BASE_URL=$BASE_URL bash dev/gitpod/install.sh
-    command: docker ps
     openMode: tab-after
   - name: prepare git
     init: git config core.fileMode false
