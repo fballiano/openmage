@@ -55,7 +55,7 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
     {
         $id = $this->getHtmlId();
 
-        $with_hash = $this->original_data['with_hash'] ?? 1;
+        $with_hash = strtolower((string) ($this->original_data['with_hash'] ?? 1));
 
         if (!empty($with_hash) && $with_hash !== 'false' && $with_hash !== 'off') {
             $oninput = "document.getElementById('{$id}').value = this.value";
