@@ -3,6 +3,7 @@ FROM gitpod/workspace-mysql
 USER gitpod
 
 RUN sudo apt-get -q update
+RUN sudo apt-get install php8.1-soap -y
 RUN sudo apt-get purge composer -y
 
 RUN mkdir ~/bin

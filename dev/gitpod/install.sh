@@ -4,7 +4,8 @@ dir=$(dirname "${BASH_SOURCE[0]}")
 cd $dir
 test -f .env && source .env
 
-chmod 777 ../../app/etc ../../media ../../var
+cd /workspace/openmage
+chmod 777 app/etc media var
 
 HOST_PORT_PART=":${HOST_PORT:-80}"
 test "$HOST_PORT_PART" = ":80" && HOST_PORT_PART=""
