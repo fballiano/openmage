@@ -22,6 +22,9 @@ ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
 ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-veryl0ngpassw0rd}"
 
+echo "Running composer install..."
+docker-compose run --rm cli composer install
+
 echo "Installing OpenMage LTS..."
 docker-compose run --rm cli php install.php \
   --license_agreement_accepted yes \
