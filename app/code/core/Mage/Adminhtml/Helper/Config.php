@@ -37,7 +37,7 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
      * @param string $inputType
      * @return array
      */
-    public function getInputTypes($inputType = null): array
+    public function getInputTypes(string $inputType = null): array
     {
         $inputTypes = [
             'color'   => [
@@ -59,7 +59,7 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
      * @param string $inputType
      * @return string|null
      */
-    public function getBackendModelByInputType($inputType): ?string
+    public function getBackendModelByInputType(string $inputType): ?string
     {
         $inputTypes = $this->getInputTypes();
         if (!empty($inputTypes[$inputType]['backend_model'])) {
