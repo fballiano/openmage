@@ -56,11 +56,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Session.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Api/Tab/Rolesedit.php
-
-		-
 			message: "#^Call to an undefined method Mage_Api_Model_Resource_Roles_User_Collection\\:\\:setUserFilter\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Api/Tab/Userroles.php
