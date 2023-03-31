@@ -126,11 +126,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Permissions/Grid/User.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Rolesedit.php
-
-		-
 			message: "#^Call to method getCollection\\(\\) on an unknown class Mage_Permissions_Model_Roles\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Permissions/Usernroles.php
