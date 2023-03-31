@@ -295,7 +295,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Add order status filter
      *
-     * @param Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
+     * @param Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
      * @param Varien_Object $filterData
      * @return $this
      */
