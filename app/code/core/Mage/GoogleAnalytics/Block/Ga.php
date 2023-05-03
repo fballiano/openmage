@@ -207,8 +207,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         /** @var Mage_Sales_Model_Order $order */
         foreach ($collection as $order) {
             $orderData = [
-                'currency' => $order->getBaseCurrencyCode(),
-                'transaction_id' => $order->getIncrementId(),
+                'currency' => (string)$order->getBaseCurrencyCode(),
+                'transaction_id' => (string)$order->getIncrementId(),
                 'value' => (float)number_format($order->getBaseGrandTotal(), 2),
                 'coupon' => strtoupper($order->getCouponCode()),
                 'shipping' => (float)number_format($order->getBaseShippingAmount(), 2),
@@ -219,11 +219,11 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             /** @var Mage_Sales_Model_Order_Item $item */
             foreach ($order->getAllVisibleItems() as $item) {
                 $orderData['items'][] = [
-                    'item_id' => $item->getSku(),
-                    'item_name' => $item->getName(),
-                    'quantity' => $item->getQtyOrdered(),
-                    'price' => $item->getBasePrice(),
-                    'discount' => $item->getBaseDiscountAmount()
+                    'item_id' => (string)$item->getSku(),
+                    'item_name' => (string)$item->getName(),
+                    'quantity' => (float)$item->getQtyOrdered(),
+                    'price' => (float)$item->getBasePrice(),
+                    'discount' => (float)$item->getBaseDiscountAmount()
                 ];
             }
             $result[] = "gtag('event', 'purchase', " . json_encode($orderData, JSON_THROW_ON_ERROR) . ");";
