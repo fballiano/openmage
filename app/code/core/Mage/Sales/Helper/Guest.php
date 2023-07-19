@@ -36,6 +36,17 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
      */
     public function loadValidOrder()
     {
+        if ($remoteAddr = Mage::helper('core/http')->getRemoteAddr()) {
+            $cacheTag = 'rate_limit_' . $remoteAddr;
+            if (Mage::app()->testCache($cacheTag)) {
+                $errorMessage = "Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again.";
+                Mage::getSingleton('core/session')->addError($this->__($errorMessage));
+                Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/guest/form'));
+                return false;
+            }
+            Mage::app()->saveCache(1, $cacheTag, ['brute_force'], 30);
+        }
+
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/order/history'));
             return false;
