@@ -1005,7 +1005,7 @@ XML;
      * @param bool $setErrorMessage Adds a predefined error message to the 'core/session' object
      * @return bool
      */
-    public function isRateLimitExceeded($setErrorMessage = true): bool
+    public function isRateLimitExceeded($setErrorMessage = true, $recordRateLimitHit = true): bool
     {
         $active = Mage::getStoreConfigFlag('system/rate_limit/active');
         if ($active && $remoteAddr = Mage::helper('core/http')->getRemoteAddr()) {
@@ -1015,9 +1015,24 @@ XML;
                 Mage::getSingleton('core/session')->addError($this->__($errorMessage));
                 return true;
             }
-            Mage::app()->saveCache(1, $cacheTag, ['brute_force'], Mage::getStoreConfig('system/rate_limit/timeframe'));
+
+            if ($recordRateLimitHit) {
+                $this->recordRateLimitHit();
+            }
         }
 
         return false;
+    }
+
+    /**
+     * @return void
+     */
+    public function recordRateLimitHit(): void
+    {
+        $active = Mage::getStoreConfigFlag('system/rate_limit/active');
+        if ($active && $remoteAddr = Mage::helper('core/http')->getRemoteAddr()) {
+            $cacheTag = 'rate_limit_' . $remoteAddr;
+            Mage::app()->saveCache(1, $cacheTag, ['brute_force'], Mage::getStoreConfig('system/rate_limit/timeframe'));
+        }
     }
 }

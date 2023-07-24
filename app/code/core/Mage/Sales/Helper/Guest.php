@@ -36,11 +36,6 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
      */
     public function loadValidOrder()
     {
-        if (Mage::helper('core')->isRateLimitExceeded()) {
-            Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/guest/form'));
-            return false;
-        }
-
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/order/history'));
             return false;
@@ -119,7 +114,10 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             return true;
         }
 
-        Mage::getSingleton('core/session')->addError($this->__($errorMessage));
+        if (!Mage::helper('core')->isRateLimitExceeded()) {
+            Mage::getSingleton('core/session')->addError($this->__($errorMessage));
+        }
+
         Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/guest/form'));
         return false;
     }
