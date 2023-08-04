@@ -13,8 +13,6 @@
  */
 
 tinymce.PluginManager.add('openmagevariable', (ed, url) => {
-    
-    
     return {        
         init: function (editor) {
             editor.addCommand('openVariablesPopup', function (commandConfig) {
