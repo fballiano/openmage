@@ -265,9 +265,6 @@ tinyMceWysiwygSetup.prototype =
         } else if (this.config.add_directives) {
             content = this.encodeDirectives(content);
         }
-
-        content = varienGlobalEvents.fireEventReducer('wysiwygEncodeContent', content);
-
         return content;
     },
     
@@ -278,8 +275,6 @@ tinyMceWysiwygSetup.prototype =
         } else if (this.config.add_directives) {
             content = this.decodeDirectives(content);
         }
-
-        content = varienGlobalEvents.fireEventReducer('wysiwygDecodeContent', content);
         return content;
     },
 
