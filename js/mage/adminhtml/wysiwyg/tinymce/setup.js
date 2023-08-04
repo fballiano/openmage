@@ -73,6 +73,11 @@ tinyMceWysiwygSetup.prototype =
                 plugins = '-' + magentoPlugins + plugins;
             }
         }
+        if (this.config.widget_plugin_src) {
+            magentoPluginsOptions.set('openmagewidget', {
+                'widget_window_url': this.config.widget_window_url
+            });
+        }
         var settings = {
             selector: this.selector,
             config: this.config,
