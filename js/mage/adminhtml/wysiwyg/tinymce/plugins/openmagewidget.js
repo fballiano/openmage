@@ -23,7 +23,7 @@ tinymce.PluginManager.add('openmagewidget', (ed, url) => {
                 if (self.activePlaceholder) {
                     img = self.activePlaceholder;
                 }
-                var config = tinyMceEditors.get(tinymce.activeEditor.id).magentoPluginsOptions.get('openmagewidget');
+                var config = tinyMceEditors.get(tinymce.activeEditor.id).openmagePluginsOptions.get('openmagewidget');
                 widgetTools.openDialog(
                     config.widget_window_url + 'widget_target_id/' + editor.getElement().id + '/'
                 );

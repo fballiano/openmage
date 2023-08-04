@@ -18,7 +18,7 @@ tinymce.PluginManager.add('openmagevariable', (ed, url) => {
     return {        
         init: function (editor) {
             editor.addCommand('openVariablesPopup', function (commandConfig) {
-                var config = tinyMceEditors.get(tinymce.activeEditor.id).magentoPluginsOptions.get('openmagevariable');
+                var config = tinyMceEditors.get(tinymce.activeEditor.id).openmagePluginsOptions.get('openmagevariable');
                 OpenmagevariablePlugin.setEditor(editor);
                 OpenmagevariablePlugin.loadChooser(
                     config.url,

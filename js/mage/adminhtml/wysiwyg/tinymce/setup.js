@@ -60,21 +60,21 @@ tinyMceWysiwygSetup.prototype =
             plugins = 'openmagewidget,' + plugins;
         }
 
-        var magentoPluginsOptions = $H({});
-        var magentoPlugins = '';
+        var openmagePluginsOptions = $H({});
+        var openmagePlugins = '';
 
         if (this.config.plugins) {
             (this.config.plugins).each(function(plugin){
-                magentoPluginsOptions.set(plugin.name, plugin.options);
-                magentoPlugins = plugin.name + ' ' + magentoPlugins;
+                openmagePluginsOptions.set(plugin.name, plugin.options);
+                openmagePlugins = plugin.name + ' ' + openmagePlugins;
             });
-            this.magentoPluginsOptions = magentoPluginsOptions;
-            if (magentoPlugins) {
-                plugins = '-' + magentoPlugins + plugins;
+            this.openmagePluginsOptions = openmagePluginsOptions;
+            if (openmagePlugins) {
+                plugins = '-' + openmagePlugins + plugins;
             }
         }
         if (this.config.widget_plugin_src) {
-            magentoPluginsOptions.set('openmagewidget', {
+            openmagePluginsOptions.set('openmagewidget', {
                 'widget_window_url': this.config.widget_window_url
             });
         }
@@ -82,7 +82,7 @@ tinyMceWysiwygSetup.prototype =
             selector: this.selector,
             config: this.config,
             plugins: plugins,
-            toolbar: magentoPlugins + 'openmagewidget | undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount',
+            toolbar: openmagePlugins + 'openmagewidget | undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount',
             automatic_uploads: false,
             branding: false,
             promotion: false,
