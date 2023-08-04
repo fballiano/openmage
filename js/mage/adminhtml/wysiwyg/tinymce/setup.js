@@ -29,30 +29,55 @@ tinyMceWysiwygSetup.prototype =
         varienGlobalEvents.attachEventHandler('tinymceSetContent', this.updateTextArea.bind(this));
         varienGlobalEvents.attachEventHandler('tinymceSaveContent', this.saveContent.bind(this));
 
-        if (typeof tinyMceEditors == 'undefined') {
-            tinyMceEditors = [];
+        if (typeof tinyMceEditors === 'undefined') {
+            window.tinyMceEditors = $H({});
         }
-        tinyMceEditors[this.id] = this;
+
+        tinyMceEditors.set(this.id, this);
     },
 
     setup: function(mode)
     {
         this.turnOff();
+
+        if (this.config.widget_plugin_src) {
+            tinymce.PluginManager.load('openmagewidget', this.config.widget_plugin_src);
+        }
+
         if (this.config.plugins) {
             (this.config.plugins).each(function(plugin){
                 tinymce.PluginManager.load(plugin.name, plugin.src);
             });
         }
+
         tinymce.init(this.getSettings(mode));
     },
 
     getSettings: function(mode) 
     {
         var plugins = 'lists advlist directionality image link media nonbreaking preview quickbars openmagevariable';
+        if (this.config.widget_plugin_src) {
+            plugins = 'openmagewidget,' + plugins;
+        }
+
+        var magentoPluginsOptions = $H({});
+        var magentoPlugins = '';
+
+        if (this.config.plugins) {
+            (this.config.plugins).each(function(plugin){
+                magentoPluginsOptions.set(plugin.name, plugin.options);
+                magentoPlugins = plugin.name + ' ' + magentoPlugins;
+            });
+            this.magentoPluginsOptions = magentoPluginsOptions;
+            if (magentoPlugins) {
+                plugins = '-' + magentoPlugins + plugins;
+            }
+        }
         var settings = {
             selector: this.selector,
             config: this.config,
             plugins: plugins,
+            toolbar: magentoPlugins + 'openmagewidget | undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount',
             automatic_uploads: false,
             branding: false,
             promotion: false,
