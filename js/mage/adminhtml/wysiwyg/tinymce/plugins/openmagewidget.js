@@ -13,6 +13,8 @@
  */
 
 tinymce.PluginManager.add('openmagewidget', (ed, url) => {
+
+    return false;
     // Register Widget plugin button
     //TODO: the button doesn't show on the toolbar
     ed.ui.registry.addButton('magentowidget', {
