@@ -55,7 +55,7 @@ tinyMceWysiwygSetup.prototype =
 
     getSettings: function(mode) 
     {
-        var plugins = 'lists advlist directionality image link media nonbreaking preview quickbars openmagevariable';
+        var plugins = 'visualblocks visualchars anchor emoticons code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking quickbars openmagevariable';
         if (this.config.widget_plugin_src) {
             plugins = 'openmagewidget,' + plugins;
         }
@@ -81,8 +81,13 @@ tinyMceWysiwygSetup.prototype =
         var settings = {
             selector: this.selector,
             config: this.config,
+            menubar: false,
             plugins: plugins,
-            toolbar: openmagePlugins + 'openmagewidget | undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount',
+            toolbar: [
+                openmagePlugins + 'openmagewidget | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify alignnone | styles fontselect fontsize ',
+                'cut paste pastetext copy | searchreplace | bullist numlist advlist | indent outdent blockquote | undo redo | link unlink anchor | image charmap emoticons code | forecolor backcolor',
+                'quicktable | h1 h2 h3 h4 h5 h6 | hr removeformat | subscript superscript | visualblocks visualchars nonbreaking pagebreak | ltr rtl | wordcount fullscreen'
+            ],
             automatic_uploads: false,
             branding: false,
             promotion: false,
