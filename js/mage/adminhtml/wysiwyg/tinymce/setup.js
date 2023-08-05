@@ -40,7 +40,6 @@ tinyMceWysiwygSetup.prototype =
     setup: function(mode)
     {
         var self = this;
-        this.turnOff();
 
         if (this.config.widget_plugin_src) {
             tinymce.PluginManager.load('openmagewidget', this.config.widget_plugin_src);
@@ -85,6 +84,9 @@ tinyMceWysiwygSetup.prototype =
             menubar: false,
             plugins: plugins,
             toolbar: toolbar,
+            // TODO resolve different language names in official js files, like Francais is fr_FR.js and Italian is it.js
+            // view app/code/core/Mage/Cms/Model/Wysiwyg/Config.php
+            language: this.config.lang,
             paste_as_text: true,
             file_picker_types: 'file image media',
             automatic_uploads: false,
@@ -92,6 +94,12 @@ tinyMceWysiwygSetup.prototype =
             promotion: false,
             convert_urls: false,
             relative_urls: true,
+            // TODO
+            // Possible values: oxide (default), oxide-dark, tinymce-5, tinymce-5-dark
+            skin: 'oxide-dark',
+            // TODO: why load this custom css? propose to delete all themes/advanced/skins/default/*.css
+            // https://www.tiny.cloud/docs/tinymce/6/add-css-options/#content_css
+            //content_css: this.config.content_css,
             urlconverter_callback: (url, node, on_save, name) => {
                 // some callback here to convert urls
                 //url = this.decodeContent(url);
