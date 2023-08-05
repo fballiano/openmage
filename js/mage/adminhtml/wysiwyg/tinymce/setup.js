@@ -19,6 +19,8 @@ tinyMceWysiwygSetup.prototype =
     mediaBrowserMetal: null,
     mediaBrowserValue: null,
 
+    openmagePluginsOptions: $H({}),
+
     initialize: function(htmlId, config)
     {
         this.id = htmlId;
@@ -32,67 +34,69 @@ tinyMceWysiwygSetup.prototype =
         if (typeof tinyMceEditors === 'undefined') {
             window.tinyMceEditors = $H({});
         }
-
         tinyMceEditors.set(this.id, this);
     },
 
     setup: function(mode)
     {
+        var self = this;
         this.turnOff();
 
         if (this.config.widget_plugin_src) {
             tinymce.PluginManager.load('openmagewidget', this.config.widget_plugin_src);
+            this.openmagePluginsOptions.set('openmagewidget', {
+                'widget_window_url': this.config.widget_window_url
+            });
         }
 
         if (this.config.plugins) {
             (this.config.plugins).each(function(plugin){
                 tinymce.PluginManager.load(plugin.name, plugin.src);
+                self.openmagePluginsOptions.set(plugin.name, plugin.options);
             });
         }
 
         tinymce.init(this.getSettings(mode));
     },
 
+
     getSettings: function(mode) 
-    {
-        var plugins = 'visualblocks visualchars anchor emoticons code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking quickbars openmagevariable';
-        if (this.config.widget_plugin_src) {
-            plugins = 'openmagewidget,' + plugins;
+    {                
+        var plugins = 'autoresize accordion visualblocks visualchars anchor emoticons code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking';
+        var toolbar = [
+            'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify alignnone | styles fontselect fontsize ',
+            'cut paste pastetext copy | searchreplace | bullist numlist advlist accordion | indent outdent blockquote | undo redo | link unlink anchor | image charmap emoticons code | forecolor backcolor',
+            'table | h1 h2 h3 h4 h5 h6 | hr removeformat | subscript superscript | visualblocks visualchars nonbreaking pagebreak | ltr rtl | wordcount fullscreen'
+        ];
+
+        // load and add to toolbar openmagePlugins
+        if (this.openmagePluginsOptions) {
+            var openmageToolbarButtons = '';
+            this.openmagePluginsOptions.each(function (plugin, key) {
+                plugins = plugin.key + ' ' + plugins;
+                openmageToolbarButtons = plugin.key + ' ' + openmageToolbarButtons;
+            });
+            toolbar[0] = openmageToolbarButtons + ' | ' + toolbar[0];
         }
 
-        var openmagePluginsOptions = $H({});
-        var openmagePlugins = '';
-
-        if (this.config.plugins) {
-            (this.config.plugins).each(function(plugin){
-                openmagePluginsOptions.set(plugin.name, plugin.options);
-                openmagePlugins = plugin.name + ' ' + openmagePlugins;
-            });
-            this.openmagePluginsOptions = openmagePluginsOptions;
-            if (openmagePlugins) {
-                plugins = '-' + openmagePlugins + plugins;
-            }
-        }
-        if (this.config.widget_plugin_src) {
-            openmagePluginsOptions.set('openmagewidget', {
-                'widget_window_url': this.config.widget_window_url
-            });
-        }
         var settings = {
             selector: this.selector,
             config: this.config,
             menubar: false,
             plugins: plugins,
-            toolbar: [
-                openmagePlugins + 'openmagewidget | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify alignnone | styles fontselect fontsize ',
-                'cut paste pastetext copy | searchreplace | bullist numlist advlist | indent outdent blockquote | undo redo | link unlink anchor | image charmap emoticons code | forecolor backcolor',
-                'quicktable | h1 h2 h3 h4 h5 h6 | hr removeformat | subscript superscript | visualblocks visualchars nonbreaking pagebreak | ltr rtl | wordcount fullscreen'
-            ],
+            toolbar: toolbar,
+            paste_as_text: true,
+            file_picker_types: 'file image media',
             automatic_uploads: false,
             branding: false,
             promotion: false,
             convert_urls: false,
             relative_urls: true,
+            urlconverter_callback: (url, node, on_save, name) => {
+                // some callback here to convert urls
+                //url = this.decodeContent(url);
+                return url;
+            },
             setup: (editor) => {
 
                 var onChange;
