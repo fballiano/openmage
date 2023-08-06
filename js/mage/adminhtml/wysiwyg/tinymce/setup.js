@@ -27,9 +27,6 @@ tinyMceWysiwygSetup.prototype =
         this.selector = 'textarea#' + htmlId;
         this.config = config;
         varienGlobalEvents.attachEventHandler('tinymceChange', this.onChangeContent.bind(this));
-        varienGlobalEvents.attachEventHandler('tinymceBeforeSetContent', this.beforeSetContent.bind(this));
-        varienGlobalEvents.attachEventHandler('tinymceSetContent', this.updateTextArea.bind(this));
-        varienGlobalEvents.attachEventHandler('tinymceSaveContent', this.saveContent.bind(this));
 
         if (typeof tinyMceEditors === 'undefined') {
             window.tinyMceEditors = $H({});
@@ -118,7 +115,8 @@ tinyMceWysiwygSetup.prototype =
                 });
 
                 editor.on('setContent', function (evt) {
-                    varienGlobalEvents.fireEvent('tinymceSetContent', evt);
+                    // TODO not sure why but this cause multiple javascript alert error only in chrome
+                    //varienGlobalEvents.fireEvent('tinymceSetContent', evt);
                 });
 
                 onChange = function (evt) {
