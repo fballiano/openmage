@@ -27,9 +27,6 @@ tinyMceWysiwygSetup.prototype =
         this.selector = 'textarea#' + htmlId;
         this.config = config;
         varienGlobalEvents.attachEventHandler('tinymceChange', this.onChangeContent.bind(this));
-        varienGlobalEvents.attachEventHandler('tinymceBeforeSetContent', this.beforeSetContent.bind(this));
-        varienGlobalEvents.attachEventHandler('tinymceSetContent', this.updateTextArea.bind(this));
-        varienGlobalEvents.attachEventHandler('tinymceSaveContent', this.saveContent.bind(this));
 
         if (typeof tinyMceEditors === 'undefined') {
             window.tinyMceEditors = $H({});
@@ -84,8 +81,6 @@ tinyMceWysiwygSetup.prototype =
             menubar: false,
             plugins: plugins,
             toolbar: toolbar,
-            // TODO resolve different language names in official js files, like Francais is fr_FR.js and Italian is it.js
-            // view app/code/core/Mage/Cms/Model/Wysiwyg/Config.php
             language: this.config.lang,
             paste_as_text: true,
             file_picker_types: 'file image media',
@@ -94,7 +89,7 @@ tinyMceWysiwygSetup.prototype =
             promotion: false,
             convert_urls: false,
             relative_urls: true,
-            skin: 'oxide-dark',
+            skin: this.config.skin,
             urlconverter_callback: (url, node, on_save, name) => {
                 // some callback here to convert urls
                 //url = this.decodeContent(url);
@@ -120,7 +115,8 @@ tinyMceWysiwygSetup.prototype =
                 });
 
                 editor.on('setContent', function (evt) {
-                    varienGlobalEvents.fireEvent('tinymceSetContent', evt);
+                    // TODO not sure why but this cause multiple javascript alert error only in chrome
+                    //varienGlobalEvents.fireEvent('tinymceSetContent', evt);
                 });
 
                 onChange = function (evt) {
