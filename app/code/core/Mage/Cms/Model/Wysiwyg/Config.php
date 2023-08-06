@@ -88,7 +88,6 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             // TODO resolve different language names in official js files, like Francais is fr_FR.js and Italian is it.js
             'lang'                          => substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2)
         ]);
-        
         $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));
 
         if (Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery')) {
