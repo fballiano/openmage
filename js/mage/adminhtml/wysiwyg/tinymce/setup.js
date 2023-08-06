@@ -84,8 +84,6 @@ tinyMceWysiwygSetup.prototype =
             menubar: false,
             plugins: plugins,
             toolbar: toolbar,
-            // TODO resolve different language names in official js files, like Francais is fr_FR.js and Italian is it.js
-            // view app/code/core/Mage/Cms/Model/Wysiwyg/Config.php
             language: this.config.lang,
             paste_as_text: true,
             file_picker_types: 'file image media',
@@ -94,7 +92,7 @@ tinyMceWysiwygSetup.prototype =
             promotion: false,
             convert_urls: false,
             relative_urls: true,
-            skin: 'oxide-dark',
+            skin: this.config.skin,
             urlconverter_callback: (url, node, on_save, name) => {
                 // some callback here to convert urls
                 //url = this.decodeContent(url);
