@@ -200,7 +200,7 @@
         <cms>
             <wysiwyg>
                 <enabled>enabled</enabled>
-                <skin>oxide</skin>
+                <skin>tinymce-5</skin>
             </wysiwyg>
         </cms>
         <system>
