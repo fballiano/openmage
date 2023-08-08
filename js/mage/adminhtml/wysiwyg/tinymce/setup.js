@@ -223,7 +223,6 @@ tinyMceWysiwygSetup.prototype =
     },
 
     onChangeContent: function () {
-        // Add "changed" to tab class if it exists
         if (this.config.tab_id) {
             var tab = document.querySelector('a[id$=' + this.config.tab_id + ']');
             if ($(tab) != undefined && $(tab).hasClassName('tab-item-link')) {
