@@ -164,15 +164,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             if (in_array($attrData, $clearImages)) {
                 $object->setData($mediaAttrCode, 'no_selection');
             }
-
-            if (array_key_exists($attrData, $newImages)) {
-                $object->setData($mediaAttrCode, $newImages[$attrData]['new_file']);
-                $object->setData($mediaAttrCode . '_label', $newImages[$attrData]['label']);
-            }
-
-            if (array_key_exists($attrData, $existImages)) {
-                $object->setData($mediaAttrCode . '_label', $existImages[$attrData]['label']);
-            }
         }
 
         foreach ($value['values'] as $mediaAttrCode => $attrData) {
