@@ -176,12 +176,15 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         foreach ($value['values'] as $mediaAttrCode => $attrData) {
+            $labelUpdated = false;
             if (array_key_exists($attrData, $newImages)) {
-                $object->setData($mediaAttrCode . '_label', $newImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', $newImages[$attrData]['label'] ?: $newImages[$attrData]['label_default']);
+                $labelUpdated = true;
             }
 
             if (array_key_exists($attrData, $existImages)) {
-                $object->setData($mediaAttrCode . '_label', $existImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', $existImages[$attrData]['label'] ?: $existImages[$attrData]['label_default']);
+                $labelUpdated = true;
             }
         }
         Mage::dispatchEvent('catalog_product_media_save_before', ['product' => $object, 'images' => $value]);
