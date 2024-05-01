@@ -27,7 +27,7 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
     public const CACHE_KEY_PREFIX = 'ups_api_token_';
 
     /**
-     * @return bool|string
+     * @return false|string
      */
     public function getAccessToken(string $clientId, string $clientSecret, string $clientUrl)
     {
@@ -46,28 +46,34 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
         $authPayload = http_build_query([
             'grant_type' => 'client_credentials',
         ]);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $clientUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $authPayload);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+        $responseData = curl_exec($ch);
         try {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $clientUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $authPayload);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
-            $responseData = curl_exec($ch);
-            curl_close($ch);
-            $responseData = json_decode($responseData);
-
-            if (isset($responseData->access_token)) {
-                $result = $responseData->access_token;
-                $expiresIn = isset($responseData->expires_in) ? $responseData->expires_in : 10000;
-                $cache->save($result, $cacheKey, [], $expiresIn);
-                return $result;
+            if ($responseData === false) {
+                $code = curl_errno($ch);
+                $description = curl_strerror($ch);
+                $message = curl_error($ch);
+                Mage::throwException("cURL Error: ($code) $description - \"$message\"");
             }
-        } catch (Exception $e) {
-            Mage::throwException($e->getMessage());
+        } finally {
+            curl_close($ch);
+        }
+
+        $responseData = json_decode($responseData);
+
+        if (isset($responseData->access_token)) {
+            $result = $responseData->access_token;
+            $expiresIn = isset($responseData->expires_in) ? $responseData->expires_in : 10000;
+            $cache->save($result, $cacheKey, [], $expiresIn);
+            return $result;
         }
 
         return false;
