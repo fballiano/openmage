@@ -1125,7 +1125,7 @@ XMLAuth;
      * Get REST tracking
      *
      * @param string[] $trackings
-     * @return Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @return Mage_Shipping_Model_Tracking_Result|null
      */
     protected function _getRestTracking($trackings)
     {
