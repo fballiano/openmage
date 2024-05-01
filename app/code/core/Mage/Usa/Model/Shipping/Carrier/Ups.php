@@ -60,9 +60,16 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @var Mage_Shipping_Model_Rate_Result|null
      */
     protected $_result = null;
+
+    /**
+     * Tracking result data
+     *
+     * @var Mage_Shipping_Model_Tracking_Result|null
+     */
+    protected $_trackingResult = null;
 
     /**
      * Base currency rate
@@ -300,7 +307,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get result of request
      *
-     * @return Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getResult()
     {
@@ -924,7 +931,7 @@ XMLRequest;
      * Get tracking
      *
      * @param mixed $trackings
-     * @return Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @return Mage_Shipping_Model_Tracking_Result|null
      */
     public function getTracking($trackings)
     {
@@ -939,7 +946,7 @@ XMLRequest;
             $this->_getRestTracking($trackings);
         }
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
@@ -967,7 +974,7 @@ XMLAuth;
      * Get xml tracking
      *
      * @param array $trackings
-     * @return Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
+     * @return Mage_Shipping_Model_Tracking_Result|null
      */
     protected function _getXmlTracking($trackings)
     {
@@ -1019,7 +1026,7 @@ XMLAuth;
             $this->_parseXmlTrackingResponse($tracking, $xmlResponse);
         }
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
@@ -1111,7 +1118,7 @@ XMLAuth;
             }
         }
 
-        $this->setTrackingResultData($resultArr,$trackingvalue,$errorTitle);
+        $this->setTrackingResultData($resultArr, $trackingvalue, $errorTitle);
     }
 
     /**
@@ -1133,9 +1140,9 @@ XMLAuth;
 
         $accessToken = $this->setAPIAccessRequest();
         if ($accessToken === false) {
-            $this->_result = Mage::getModel('shipping/tracking_result');
-            $this->_result->setError('Authentication error');
-            return $this->_result;
+            $this->_trackingResult = Mage::getModel('shipping/tracking_result');
+            $this->_trackingResult->setError('Authentication error');
+            return $this->_trackingResult;
         }
 
         $version = "v1";
@@ -1173,7 +1180,7 @@ XMLAuth;
         }
         curl_close($ch);
 
-        return $this->_result;
+        return $this->_trackingResult;
     }
 
     /**
@@ -1263,8 +1270,8 @@ XMLAuth;
      */
     private function setTrackingResultData($resultArr, $trackingValue, $errorTitle)
     {
-        if (!$this->_result) {
-            $this->_result = Mage::getModel('shipping/tracking_result');
+        if (!$this->_trackingResult) {
+            $this->_trackingResult = Mage::getModel('shipping/tracking_result');
         }
 
         if ($resultArr) {
@@ -1274,7 +1281,7 @@ XMLAuth;
             $tracking->setCarrierTitle($this->getConfigData('title'));
             $tracking->setTracking($trackingValue);
             $tracking->addData($resultArr);
-            $this->_result->append($tracking);
+            $this->_trackingResult->append($tracking);
         } else {
             /** @var Mage_Shipping_Model_Tracking_Result_Error $error */
             $error = Mage::getModel('shipping/tracking_result_error');
@@ -1282,7 +1289,7 @@ XMLAuth;
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setTracking($trackingValue);
             $error->setErrorMessage($errorTitle);
-            $this->_result->append($error);
+            $this->_trackingResult->append($error);
         }
     }
 
@@ -1293,12 +1300,10 @@ XMLAuth;
      */
     public function getResponse()
     {
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
-            $trackings = $this->_result->getAllTrackings();
-        } elseif ($this->_result instanceof Mage_Shipping_Model_Rate_Result) {
-            $trackings = $this->_result->getAllTrackings();
-        } else {
+        if ($this->_trackingResult === null) {
             $trackings = [];
+        } else {
+            $trackings = $this->_trackingResult->getAllTrackings();
         }
 
         $statuses = '';
