@@ -1138,8 +1138,10 @@ XMLAuth;
             }
         }
 
-        $accessToken = $this->setAPIAccessRequest();
-        if ($accessToken === false) {
+        try {
+            $accessToken = $this->setAPIAccessRequest();
+        } catch (Exception $e) {
+            Mage::logException($e);
             $this->_trackingResult = Mage::getModel('shipping/tracking_result');
             $this->_trackingResult->setError('Authentication error');
             return $this->_trackingResult;
@@ -1640,8 +1642,9 @@ XMLAuth;
         $result = new Varien_Object();
         $this->_prepareShipmentRequest($request);
         $rawJsonRequest = $this->_formShipmentRestRequest($request);
-        $accessToken = $this->setAPIAccessRequest();
-        if ($accessToken === false) {
+        try {
+            $accessToken = $this->setAPIAccessRequest();
+        } catch (Exception $e) {
             $result->setErrors(Mage::helper('usa')->__('Authentication error'));
             return $result;
         }
@@ -2193,8 +2196,10 @@ XMLAuth;
                 $url = $this->_defaultUrls['RateRest'] . '/';
             }
         }
-        $accessToken = $this->setAPIAccessRequest();
-        if ($accessToken === false) {
+        try {
+            $accessToken = $this->setAPIAccessRequest();
+        } catch (Exception $e) {
+            Mage::logException($e);
             $result = Mage::getModel('shipping/rate_result');
             $result->setError('Authentication error');
             return $result;
@@ -2493,7 +2498,7 @@ XMLAuth;
     /**
      * To receive access token
      *
-     * @return false|string
+     * @return string
      * @throws Exception
      */
     protected function setAPIAccessRequest()

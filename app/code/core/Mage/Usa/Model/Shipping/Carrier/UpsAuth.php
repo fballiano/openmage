@@ -27,7 +27,8 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
     public const CACHE_KEY_PREFIX = 'ups_api_token_';
 
     /**
-     * @return false|string
+     * @return string
+     * @throws Exception
      */
     public function getAccessToken(string $clientId, string $clientSecret, string $clientUrl)
     {
@@ -69,14 +70,18 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
 
         $responseData = json_decode($responseData);
 
-        if (isset($responseData->access_token)) {
-            $result = $responseData->access_token;
-            $expiresIn = isset($responseData->expires_in) ? $responseData->expires_in : 10000;
-            $cache->save($result, $cacheKey, [], $expiresIn);
-            return $result;
+        if (isset($responseData->errors)) {
+            Mage::throwException('Failed to authenticate with UPS. Errors: ' . json_encode($responseData->errors));
         }
 
-        return false;
+        if (!isset($responseData->access_token)) {
+            Mage::throwException('Error decoding auth token from UPS');
+        }
+
+        $result = $responseData->access_token;
+        $expiresIn = isset($responseData->expires_in) ? $responseData->expires_in : 10000;
+        $cache->save($result, $cacheKey, [], $expiresIn);
+        return $result;
     }
 
     /**
